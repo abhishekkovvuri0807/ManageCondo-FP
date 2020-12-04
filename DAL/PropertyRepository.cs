@@ -12,19 +12,22 @@ namespace DAL
     {
 
         private readonly ManageCondoContext _dbContext;
+        private readonly UnitRepository _unitRepository;
 
-        public PropertyRepository(ManageCondoContext dbContext)
+        public PropertyRepository(ManageCondoContext dbContext, UnitRepository unitRepository)
         {
             _dbContext = dbContext;
+            _unitRepository = unitRepository;
         }
 
         public IEnumerable<Property> GetAllProperties()
         {
-            return _dbContext.Properties.ToList<Property>();
+            return _dbContext.Properties.Where(p => p.IsActive).ToList<Property>();
         }
 
         public void AddProperty(Property property)
         {
+            property.IsActive = true;
             _dbContext.Properties.Add(property);
             _dbContext.SaveChanges();
         }
@@ -46,10 +49,25 @@ namespace DAL
             return _dbContext.Properties.Where(p => p.ID == propertyID).FirstOrDefault();
         }
 
-        public void DeleteProperty(Property property)
+        public bool DeleteProperty(int propertyID)
         {
-            _dbContext.Properties.Remove(property);
-            _dbContext.SaveChanges();
+            Property property = _dbContext.Properties.Where(p => p.ID == propertyID).FirstOrDefault();
+
+            List<Unit> units = _unitRepository.GetUnitsByPropertyID(propertyID);
+          
+            if(units.Count > 0)
+            {
+                return false;
+            } else
+            {
+                property.IsActive = false;
+                int result = _dbContext.SaveChanges();
+                if(result > 0)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
     }

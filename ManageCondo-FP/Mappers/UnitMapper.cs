@@ -21,7 +21,11 @@ namespace ManageCondo_FP.Mappers
             unitViewModel.IsRentedOut = unit.isRentedOut;
             unitViewModel.Status = (UnitStatus)Enum.Parse(typeof(UnitStatus), unit.Status, true);
             unitViewModel.PropertyID = unit.PropertyID;
-            unitViewModel.Property = unit.Property.ToPropertyViewModel();
+
+            if(unit.Property != null)
+            {
+                unitViewModel.Property = unit.Property.ToPropertyViewModel();
+            }
             return unitViewModel;
         }
 
@@ -46,7 +50,11 @@ namespace ManageCondo_FP.Mappers
             unit.Status = unitViewModel.Status.ToString();
             unit.isRentedOut = unitViewModel.IsRentedOut;
             unit.PropertyID = unitViewModel.PropertyID;
-            unit.Property = unitViewModel.Property.ToProperty();
+
+            if(unitViewModel.Property != null)
+            {
+                unit.Property = unitViewModel.Property.ToProperty();
+            }
             return unit;
         }
     }

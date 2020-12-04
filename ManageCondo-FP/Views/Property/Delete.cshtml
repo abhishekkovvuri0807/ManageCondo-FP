@@ -9,6 +9,7 @@
 <h3>Are you sure you want to delete this?</h3>
 <div>
     <hr />
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.PropertyID)
@@ -72,9 +73,9 @@
     {
         @Html.AntiForgeryToken()
 
-<div class="form-actions no-color">
-    <input type="submit" value="Delete" class="btn btn-default" /> &nbsp; &nbsp;
-    <input type="button" class="btn btn-primary" value="Property List" onclick="@("window.location.href='" + @Url.Action("Index", "Property") + "'");" />
-</div>
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> &nbsp; &nbsp;
+            <input type="button" class="btn btn-primary" value="Property List" onclick="@("window.location.href='" + @Url.Action("Index", "Property") + "'");" />
+        </div>
     }
 </div>

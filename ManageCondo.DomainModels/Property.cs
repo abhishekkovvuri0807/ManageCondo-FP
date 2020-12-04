@@ -35,7 +35,10 @@ namespace ManageCondo.DomainModels
 
         [StringLength(10)]
         public string Phone { get; set; }
-            
+
+        [Required]
+        public bool IsActive { get; set; }
+
         public ICollection<Unit> Unit { get; set; }
       
 

@@ -17,6 +17,6 @@ namespace ManageCondo.Repository.Interfaces
 
         Property GetPropertyDetails(int propertyID);
 
-        void DeleteProperty(Property property);
+        bool DeleteProperty(int propertyID);
     }
 }

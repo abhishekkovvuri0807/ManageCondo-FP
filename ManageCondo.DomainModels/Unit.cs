@@ -33,7 +33,8 @@ namespace ManageCondo.DomainModels
         [StringLength(255)]
         public string Status { get; set; }
 
-        public bool isActive { get; set; }
+        [Required]
+        public bool IsActive { get; set; }
 
         [Required]
         public int PropertyID { get; set; }

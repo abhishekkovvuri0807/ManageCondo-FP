@@ -20,3 +20,4 @@ D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageC
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_v6.resources
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_v7.resources
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_v8.resources
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_log_1.resources

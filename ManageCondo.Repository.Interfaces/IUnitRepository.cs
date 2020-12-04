@@ -12,6 +12,7 @@ namespace ManageCondo.Repository.Interfaces
 
         Unit GetUnitDetails(int unitID);
 
-        void DeleteUnit(Unit unit);
+        void DeleteUnit(int unitID);
+        List<Unit> GetUnitsByPropertyID(int propertyID);
     }
 }

@@ -1,37 +1,50 @@
-﻿@model IEnumerable<ManageCondo_FP.Models.PropertyViewModel>
+﻿@model PagedList.IPagedList<ManageCondo_FP.Models.PropertyViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@*@model PagedList.IPagedList<ManageCondo_FP.Models.PropertyViewModel>
+    @using PagedList.Mvc;
+    <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />*@
 
 @{
     ViewBag.Title = "Index";
 }
 
-<div class="action-header">
-    <h2 class="action-header-h2">Properties</h2>
-    <p class="action-header-p" style="float:left">
-        <input type="button" class="btn btn-primary" value="Add Property" onclick="@("window.location.href='" + @Url.Action("Create", "Property") + "'");" />
+<h2>Properties</h2>
+
+<p>
+    <input type="button" class="btn btn-primary" value="Add Property" onclick="@("window.location.href='" + @Url.Action("Create", "Property") + "'");" />
+</p>
+
+@using (Html.BeginForm("Index", "Property", FormMethod.Get))
+{
+    <p>
+        Find by text: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
     </p>
-</div>
+}
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.PropertyID)
+            @Html.ActionLink("Property ID", "Index", new { sortOrder = ViewBag.PropertyIDSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Address)
+            @Html.ActionLink("Adress", "Index", new { sortOrder = ViewBag.AddressSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.EmailSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.ActionLink("Description", "Index", new { sortOrder = ViewBag.DescriptionSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Status)
+            @Html.ActionLink("Status", "Index", new { sortOrder = ViewBag.StatusSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone)
+            @Html.ActionLink("Phone", "Index", new { sortOrder = ViewBag.PhoneSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>
             @Html.DisplayName("Actions")
@@ -41,35 +54,41 @@
 
     @foreach (var item in Model)
     {
-<tr>
-    <td>
-        @Html.ActionLink(item.PropertyID.ToString(), "Details", new { id = item.PropertyID })
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Name)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Address)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Email)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Status)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Phone)
-    </td>
-    <td>
-        <span class="glyphicon glyphicon-pencil" onclick="@("window.location.href='" + @Url.Action("Edit", "Property", new { id = item.PropertyID }) + "'");"></span>
-        &nbsp;
-        &nbsp;
-        <span class="glyphicon glyphicon-trash" onclick="@("window.location.href='" + @Url.Action("Delete", "Property", new { id = item.PropertyID }) + "'");"></span>
-    </td>
-</tr>
+        <tr>
+            <td>
+                @Html.ActionLink(item.PropertyID.ToString(), "Details", new { id = item.PropertyID })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Phone)
+            </td>
+            <td>
+                <span class="glyphicon glyphicon-pencil" onclick="@("window.location.href='" + @Url.Action("Edit", "Property", new { id = item.PropertyID }) + "'");"></span>
+                &nbsp;
+                &nbsp;
+                <span class="glyphicon glyphicon-trash" onclick="@("window.location.href='" + @Url.Action("Delete", "Property", new { id = item.PropertyID }) + "'");"></span>
+            </td>
+        </tr>
     }
 
 </table>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

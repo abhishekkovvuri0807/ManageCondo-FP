@@ -37,9 +37,9 @@ namespace ManagaCondo.Business
             return _unitRepository.GetUnitDetails(unitID);
         }
 
-        public void DeleteUnit(Unit unit)
+        public void DeleteUnit(int unitID)
         {
-            _unitRepository.DeleteUnit(unit);
+            _unitRepository.DeleteUnit(unitID);
         }
     }
 

@@ -35,9 +35,9 @@ namespace ManageCondo.Business
             return _propertyRepository.GetPropertyDetails(propertyID);
         }
 
-        public void DeleteProperty(Property property)
+        public bool DeleteProperty(int propertyID)
         {
-            _propertyRepository.DeleteProperty(property);
+            return _propertyRepository.DeleteProperty(propertyID);
         }
 
     }

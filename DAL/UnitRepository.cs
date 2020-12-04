@@ -20,11 +20,12 @@ namespace DAL
 
         public IEnumerable<Unit> GetAllUnits()
         {
-            return _dbContext.Units.Include(u => u.Property).ToList();
+            return _dbContext.Units.Where(u => u.IsActive == true).Include(u => u.Property).ToList();
         }
 
         public void AddUnit(Unit unit)
         {
+            unit.IsActive = true;
             _dbContext.Units.Add(unit);
             _dbContext.SaveChanges();
         }
@@ -44,13 +45,20 @@ namespace DAL
 
         public Unit GetUnitDetails(int unitID)
         {
-            return _dbContext.Units.Where(p => p.ID == unitID).FirstOrDefault();
+            return _dbContext.Units.Where(p => p.ID == unitID).Include(u => u.Property).FirstOrDefault();
         }
 
-        public void DeleteUnit(Unit unit)
+        public void DeleteUnit(int unitID)
         {
-            _dbContext.Units.Remove(unit);
+            Unit unit =  _dbContext.Units.Where(p => p.ID == unitID).Include(u => u.Property).FirstOrDefault();
+            unit.IsActive = false;
             _dbContext.SaveChanges();
+        }
+
+        public List<Unit> GetUnitsByPropertyID(int propertyID)
+        {
+            List<Unit> units = _dbContext.Units.Where(p => p.IsActive && p.PropertyID == propertyID).ToList();
+            return units;
         }
 
     }
