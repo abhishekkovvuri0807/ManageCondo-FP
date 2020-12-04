@@ -1,0 +1,6 @@
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\bin\Debug\ManageCondo.Repository.Interfaces.dll
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\bin\Debug\ManageCondo.Repository.Interfaces.pdb
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\obj\Debug\ManageCondo.Repository.Interfaces.csprojAssemblyReference.cache
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\obj\Debug\ManageCondo.Repository.Interfaces.csproj.CoreCompileInputs.cache
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\obj\Debug\ManageCondo.Repository.Interfaces.dll
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\obj\Debug\ManageCondo.Repository.Interfaces.pdb

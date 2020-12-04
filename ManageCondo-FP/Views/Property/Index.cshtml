@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ManageCondo_FP.Models.PropertyViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="action-header">
+    <h2 class="action-header-h2">Properties</h2>
+    <p class="action-header-p" style="float:left">
+        <input type="button" class="btn btn-primary" value="Add Property" onclick="@("window.location.href='" + @Url.Action("Create", "Property") + "'");" />
+    </p>
+</div>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PropertyID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone)
+        </th>
+        <th>
+            @Html.DisplayName("Actions")
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+<tr>
+    <td>
+        @Html.ActionLink(item.PropertyID.ToString(), "Details", new { id = item.PropertyID })
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Name)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Address)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Email)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Status)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Phone)
+    </td>
+    <td>
+        <span class="glyphicon glyphicon-pencil" onclick="@("window.location.href='" + @Url.Action("Edit", "Property", new { id = item.PropertyID }) + "'");"></span>
+        &nbsp;
+        &nbsp;
+        <span class="glyphicon glyphicon-trash" onclick="@("window.location.href='" + @Url.Action("Delete", "Property", new { id = item.PropertyID }) + "'");"></span>
+    </td>
+</tr>
+    }
+
+</table>

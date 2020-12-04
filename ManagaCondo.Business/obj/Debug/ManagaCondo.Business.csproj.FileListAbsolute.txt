@@ -1,0 +1,11 @@
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\bin\Debug\ManagaCondo.Business.dll
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\bin\Debug\ManagaCondo.Business.pdb
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\bin\Debug\ManageCondo.DomainModels.dll
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\bin\Debug\ManageCondo.Repository.Interfaces.dll
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\bin\Debug\ManageCondo.DomainModels.pdb
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\bin\Debug\ManageCondo.Repository.Interfaces.pdb
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\obj\Debug\ManagaCondo.Business.csprojAssemblyReference.cache
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\obj\Debug\ManagaCondo.Business.csproj.CoreCompileInputs.cache
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\obj\Debug\ManagaCondo.Business.csproj.CopyComplete
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\obj\Debug\ManagaCondo.Business.dll
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManagaCondo.Business\obj\Debug\ManagaCondo.Business.pdb
