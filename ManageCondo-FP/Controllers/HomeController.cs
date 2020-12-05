@@ -1,39 +1,57 @@
 ﻿using DAL;
+using ManagaCondo.Business;
 using ManageCondo.DomainModels;
+using ManageCondo_FP.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace ManageCondo_FP.Controllers
 {
     public class HomeController : Controller
     {
-        PropertyRepository _propertyRepository;
-        public HomeController(PropertyRepository propertyRepository)
+        UserBusiness _userBusiness;
+        public HomeController(UserBusiness userBusiness)
         {
-            _propertyRepository = propertyRepository;
+            _userBusiness = userBusiness;
         }
 
-        public ActionResult Index()
+        public ActionResult Login()
         {
-            //_propertyRepository.add();
+            if(User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "Property");
+            }
             return View();
         }
 
-        public ActionResult About()
+        [HttpPost]
+        public ActionResult Login(LoginViewModel user)
         {
-            ViewBag.Message = "Your application description page.";
+            if (ModelState.IsValid)
+            {
+                bool IsValidUser = _userBusiness.ValidateUser(user.Email, user.Password);
+                if (IsValidUser)
+                {
+                    string[] roles = _userBusiness.GetUserRole(user.Email);
+                   
+                    FormsAuthentication.SetAuthCookie(user.Email, false);
 
+                    return RedirectToAction("Index", "Property");
+                }
+            }
+            ModelState.AddModelError("", "invalid Email or Password");
             return View();
         }
 
-        public ActionResult Contact()
+        public ActionResult Logout()
         {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
+            FormsAuthentication.SignOut();
+            return RedirectToAction("Login");
         }
     }
 }

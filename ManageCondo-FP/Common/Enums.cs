@@ -36,4 +36,25 @@ namespace ManageCondo_FP.Common
         [Description("Rented Out")]
         RentedOut
     }
+
+    public enum UserStatus
+    {
+        [Description("Active")]
+        Active,
+
+        [Description("InActive")]
+        InActive,
+
+        [Description("Blocked")]
+        Blocked,
+    }
+
+    public enum UserRole
+    {
+        [Description("Admin")]
+        Admin,
+
+        [Description("Resident")]
+        Resident
+    }
 }

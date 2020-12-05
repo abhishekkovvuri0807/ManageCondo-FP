@@ -11,6 +11,7 @@ using PagedList;
 
 namespace ManageCondo_FP.Controllers
 {
+    [Authorize]
     public class PropertyController : Controller
     {
         private readonly PropertyBusiness _propertyBusiness;

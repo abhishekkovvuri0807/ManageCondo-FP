@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL;
+using ManagaCondo.Business;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -37,7 +39,8 @@ namespace ManageCondo_FP.Models
 
         public override string[] GetRolesForUser(string username)
         {
-            throw new NotImplementedException();
+            UserBusiness userBusiness = new UserBusiness(new UserRepository(new ManageCondoContext()));
+            return userBusiness.GetUserRole(username);
         }
 
         public override string[] GetUsersInRole(string roleName)

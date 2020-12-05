@@ -12,6 +12,7 @@ using System.Web.Mvc;
 
 namespace ManageCondo_FP.Controllers
 {
+    [Authorize(Roles = "Resident")]
     public class UnitController : Controller
     {
         private readonly PropertyBusiness _propertyBusiness;

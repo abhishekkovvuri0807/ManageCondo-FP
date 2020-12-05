@@ -21,6 +21,7 @@ namespace ManageCondo_FP
             container.RegisterType<ManageCondoContext, ManageCondoContext>();
             container.RegisterType<IPropertyRepository, PropertyRepository>();
             container.RegisterType<IUnitRepository, UnitRepository>();
+            container.RegisterType<IUserRepository, UserRepository>();
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

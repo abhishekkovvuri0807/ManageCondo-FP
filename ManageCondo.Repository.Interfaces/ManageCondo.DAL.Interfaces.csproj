@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="IPropertyRepository.cs" />
     <Compile Include="IUnitRepository.cs" />
+    <Compile Include="IUserRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
