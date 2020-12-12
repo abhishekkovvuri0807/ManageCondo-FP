@@ -1,4 +1,5 @@
-﻿using ManageCondo.DomainModels;
+﻿using DAL.Utility;
+using ManageCondo.DomainModels;
 using ManageCondo.Repository.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -30,31 +31,53 @@ namespace DAL
             return _dbContext.Users.Where(u => u.IsActive == true && u.Email == email).ToList();
         }
 
-        public bool AddUser(User user)
+        public Result<bool> AddUser(User user)
         {
             user.IsActive = true;
             User userData = _dbContext.Users.Where(p => p.Email == user.Email && p.IsActive == true).FirstOrDefault();
             if(userData == null)
             {
                 _dbContext.Users.Add(user);
-                _dbContext.SaveChanges();
-                SendMail(user.Email, user.Password);
-                return true;
+                if(_dbContext.SaveChanges() > 0)
+                {
+                    string subject = "Manage Condo Credentials";
+                    string message = "Manage Condo Credentials - Email: " + user.Email + " Password: " + user.Password;
+                    Email.SendMail(user.Email, subject, message);
+                    return Result<bool>.Success(true, Constants.USER_ADD_SUCCESS);
+                }
+            } else
+            {
+                return Result<bool>.Fail(Constants.USER_EXISTS);
             }
-            return false;
-           
+            return Result<bool>.Fail(Constants.ERROR);
         }
 
-        public void UpdateUser(User user)
+        public Result<bool> UpdateUser(User user)
         {
             User userData = _dbContext.Users.Where(p => p.ID == user.ID).FirstOrDefault();
-            userData.FirstName = user.FirstName;
-            userData.LastName = user.LastName;
-            userData.Email = user.Email;
-            userData.Password = user.Password;
-            userData.Role = user.Role;
-            userData.Status = user.Status;
-            _dbContext.SaveChanges();
+
+            if (userData != null)
+            {
+                userData.FirstName = user.FirstName;
+                userData.LastName = user.LastName;
+                userData.Email = user.Email;
+                userData.Password = user.Password;
+                userData.Role = user.Role;
+                userData.Status = user.Status;
+
+                if (_dbContext.SaveChanges() > 0)
+                {
+                    string subject = "Update Manage Condo Credentials";
+                    string message = "Manage Condo Credentials - Email: " + user.Email + " Password: " + user.Password;
+                    Email.SendMail(userData.Email, subject, message);
+                    return Result<bool>.Success(true, Constants.USER_UPDATE_SUCCESS);
+                }
+            }
+            else
+            {
+                return Result<bool>.Fail(Constants.USER_NOT_EXISTS);
+            }
+            return Result<bool>.Fail(Constants.ERROR);
         }
 
         public User GetUserDetails(int userID)
@@ -69,30 +92,7 @@ namespace DAL
             _dbContext.SaveChanges();
         }
 
-        public void SendMail(string email, string password)
-        {
-            try
-            {
-                SmtpClient smtp = new SmtpClient("smtp.gmail.com", 587);
-                smtp.EnableSsl = true;
-                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
-                smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new System.Net.NetworkCredential("managecondo.app@gmail.com", "ManageCondoApp3");
-                smtp.Timeout = 30000;
-
-                MailMessage message = new MailMessage();
-                message.To.Add(email);
-                message.From = new MailAddress("managecondo.app@gmail.com");
-                message.Subject = "Manage Condo Credentials";
-                message.Body = "Manage Condo Credentials - Email: " + email + " Password: " + password;
-                smtp.Send(message);
-                
-            } catch(Exception ex)
-                {
-                throw ex;
-            }
-        }
-
+      
         public bool ValidateUser(string email, string password)
         {
             User user = _dbContext.Users.Where(u => u.IsActive == true && u.Email == email && u.Password == password).FirstOrDefault();
@@ -105,10 +105,9 @@ namespace DAL
 
         public string[] GetUserRole(string email)
         {
-            List<string> roles = _dbContext.Users.Where(u => u.IsActive == true && u.Email == email).Select(u => u.Role).ToList();
+            List<string> roles = _dbContext.Users.Where(u => u.IsActive == true && u.Email == email).Select(u => u.Role).Distinct().ToList();
             return roles.ToArray();
         }
-
      
     }
 }

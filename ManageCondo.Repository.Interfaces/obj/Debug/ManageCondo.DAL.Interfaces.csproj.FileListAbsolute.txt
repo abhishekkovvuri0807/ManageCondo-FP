@@ -2,6 +2,7 @@ D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\bi
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\bin\Debug\ManageCondo.Repository.Interfaces.pdb
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\bin\Debug\ManageCondo.DomainModels.dll
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\bin\Debug\ManageCondo.DomainModels.pdb
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\bin\Debug\ManageCondo.DomainModels.dll.config
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\obj\Debug\ManageCondo.DAL.Interfaces.csprojAssemblyReference.cache
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\obj\Debug\ManageCondo.DAL.Interfaces.csproj.CoreCompileInputs.cache
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.Repository.Interfaces\obj\Debug\ManageCondo.DAL.Interfaces.csproj.CopyComplete

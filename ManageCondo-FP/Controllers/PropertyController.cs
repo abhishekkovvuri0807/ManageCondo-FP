@@ -8,10 +8,11 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using PagedList;
+using ManageCondo_FP.Authentication;
 
 namespace ManageCondo_FP.Controllers
 {
-    [Authorize]
+    //[CustomAuthorize(Roles = "Admin")]
     public class PropertyController : Controller
     {
         private readonly PropertyBusiness _propertyBusiness;
@@ -103,8 +104,6 @@ namespace ManageCondo_FP.Controllers
             int pageSize = 3;
             int pageNumber = (page ?? 1);
             return View(propertyViewModelList.ToPagedList(pageNumber, pageSize));
-
-
         }
 
         // GET: Property/Details/5

@@ -11,20 +11,21 @@ namespace ManageCondo_FP.Models
     {
         public int UserID { get; set; }
 
-        [Required]
-        [StringLength(255)]
+        [Required(ErrorMessage = "First name is required.")]
+        [StringLength(255, ErrorMessage = "First name cannot exceed 255 characters.")]
         public string FirstName { get; set; }
 
-        [Required]
-        [StringLength(255)]
+        [Required(ErrorMessage = "Last name is required.")]
+        [StringLength(255, ErrorMessage = "Last name cannot exceed 255 characters.")]
         public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Last name is required.")]
         [StringLength(255)]
         public string Email { get; set; }
 
-        [Required]
-        [StringLength(255)]
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(255, ErrorMessage = "Password cannot exceed 255 characters.")]
+        [RegularExpression(@"^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)\S{6,20}$", ErrorMessage = "Invalid password format")]
         public string Password { get; set; }
 
         [Required]
@@ -32,10 +33,10 @@ namespace ManageCondo_FP.Models
         [Compare("Password")]
         public string ConfirmPassword { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Role is required.")]
         public UserRole Role { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Status is required.")]
         public UserStatus Status { get; set; }
     }
 }

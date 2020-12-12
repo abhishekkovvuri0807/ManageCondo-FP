@@ -41,5 +41,9 @@ namespace ManageCondo.DomainModels
 
         public Property Property { get; set; }
 
+        public ICollection<Resident> Residents { get; set; }
+
+
+
     }
 }

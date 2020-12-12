@@ -158,26 +158,34 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
+    <Compile Include="Authentication\CustomAuthorizeAttribute.cs" />
+    <Compile Include="Authentication\CustomPrincipal.cs" />
     <Compile Include="Common\Enums.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ParcelController.cs" />
     <Compile Include="Controllers\PropertyController.cs" />
-    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\ResidentController.cs" />
     <Compile Include="Controllers\UnitController.cs" />
     <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Mappers\PropertyMapper.cs" />
+    <Compile Include="Mappers\ResidentMapper.cs" />
     <Compile Include="Mappers\UnitMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\PropertyViewModel.cs" />
+    <Compile Include="Models\ResidentViewModel.cs" />
     <Compile Include="Models\UnitViewModel.cs" />
-    <Compile Include="Models\UserRoleProvider.cs" />
+    <Compile Include="Authentication\UserRoleProvider.cs" />
     <Compile Include="Models\UserViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="401.html" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -232,10 +240,18 @@
     <Content Include="Views\User\Edit.cshtml" />
     <Content Include="Views\User\Delete.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
+    <Content Include="Views\Error\AccessDenied.cshtml" />
+    <Content Include="Views\Error\AppError.cshtml" />
+    <Content Include="Views\Resident\Index.cshtml" />
+    <Content Include="Views\Resident\Details.cshtml" />
+    <Content Include="Views\Resident\Create.cshtml" />
+    <Content Include="Views\Resident\Edit.cshtml" />
+    <Content Include="Views\Resident\Delete.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Parcel\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\Role\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

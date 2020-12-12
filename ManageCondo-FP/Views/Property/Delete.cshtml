@@ -74,7 +74,7 @@
         @Html.AntiForgeryToken()
 
         <div class="form-actions no-color">
-            <input type="submit" value="Delete" class="btn btn-default" /> &nbsp; &nbsp;
+            <input type="submit" value="Delete" class="btn btn-danger" /> &nbsp; &nbsp;
             <input type="button" class="btn btn-primary" value="Property List" onclick="@("window.location.href='" + @Url.Action("Index", "Property") + "'");" />
         </div>
     }

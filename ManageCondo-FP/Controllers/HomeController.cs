@@ -1,11 +1,8 @@
-﻿using DAL;
-using ManagaCondo.Business;
-using ManageCondo.DomainModels;
+﻿using ManagaCondo.Business;
+using ManageCondo_FP.Common;
 using ManageCondo_FP.Models;
+using Newtonsoft.Json;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
@@ -30,7 +27,7 @@ namespace ManageCondo_FP.Controllers
         }
 
         [HttpPost]
-        public ActionResult Login(LoginViewModel user)
+        public ActionResult Login(LoginViewModel user, string ReturnUrl = "")
         {
             if (ModelState.IsValid)
             {
@@ -38,9 +35,26 @@ namespace ManageCondo_FP.Controllers
                 if (IsValidUser)
                 {
                     string[] roles = _userBusiness.GetUserRole(user.Email);
-                   
-                    FormsAuthentication.SetAuthCookie(user.Email, false);
 
+                    UserViewModel userModel = new UserViewModel();
+                    userModel.Email = user.Email;
+                    userModel.Role = (UserRole)Enum.Parse(typeof(UserRole), roles[0], true); ;
+
+                    string userData = JsonConvert.SerializeObject(userModel);
+                    FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket
+                    (
+                        1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(15), false, userData
+                    );
+                    string enTicket = FormsAuthentication.Encrypt(authTicket);
+                    HttpCookie faCookie = new HttpCookie("UserCookie", enTicket);
+                    Response.Cookies.Add(faCookie);
+                }
+                if (Url.IsLocalUrl(ReturnUrl))
+                {
+                    return Redirect(ReturnUrl);
+                }
+                else
+                {
                     return RedirectToAction("Index", "Property");
                 }
             }
@@ -50,8 +64,14 @@ namespace ManageCondo_FP.Controllers
 
         public ActionResult Logout()
         {
+
+            HttpCookie cookie = new HttpCookie("UserCookie", "");
+            cookie.Expires = DateTime.Now.AddYears(-1);
+            Response.Cookies.Add(cookie);
+
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
+
         }
     }
 }

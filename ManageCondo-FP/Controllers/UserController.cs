@@ -1,19 +1,18 @@
 ﻿using ManagaCondo.Business;
 using ManageCondo.DomainModels;
+using ManageCondo_FP.Authentication;
 using ManageCondo_FP.Common;
 using ManageCondo_FP.Mappers;
 using ManageCondo_FP.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Security;
 
 namespace ManageCondo_FP.Controllers
 {
-    [Authorize(Roles = "Admin,Resident")]
+    //[CustomAuthorize(Roles = "Admin, Resident")]
     public class UserController : Controller
     {
         private readonly UserBusiness _userBusiness;
@@ -23,24 +22,89 @@ namespace ManageCondo_FP.Controllers
             _userBusiness = userBusiness;
         }
         // GET: User
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            string email = User.Identity.Name;
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.UserIDSortParm = String.IsNullOrEmpty(sortOrder) ? "userid_desc" : "";
+            ViewBag.FirstNameSortParm = sortOrder == "firstname_asc" ? "firstname_desc" : "firstname_asc";
+            ViewBag.LastNameSortParm = sortOrder == "lastname_asc" ? "lastname_desc" : "lastname_asc";
+            ViewBag.EmailSortParm = sortOrder == "email_asc" ? "email_desc" : "email_asc";
+            ViewBag.StatusSortParm = sortOrder == "status_asc" ? "status_desc" : "status_asc";
+            ViewBag.RolwSortParm = sortOrder == "role_asc" ? "role_desc" : "role_asc";
 
-            string[] roles = _userBusiness.GetUserRole(email);
 
-            if (roles.Contains(UserRole.Resident.ToString()))
+            if (searchString != null)
             {
-                IEnumerable<User> unitList = _userBusiness.GetUsersByEmail(User.Identity.Name);
-                IEnumerable<UserViewModel> unitViewModelList = UserMapper.ToUserViewModelList(unitList);
-                return View(unitViewModelList);
+                page = 1;
             }
             else
             {
-                IEnumerable<User> unitList = _userBusiness.GetAllUsers();
-                IEnumerable<UserViewModel> unitViewModelList = UserMapper.ToUserViewModelList(unitList);
-                return View(unitViewModelList);
+                searchString = currentFilter;
             }
+
+            ViewBag.CurrentFilter = searchString;
+
+            IEnumerable<User> unitList;
+            if (User.IsInRole(UserRole.Admin.ToString()))
+            {
+                unitList = _userBusiness.GetAllUsers();
+            } else
+            {
+                unitList = _userBusiness.GetUsersByEmail(User.Identity.Name);
+            }
+
+            IEnumerable<UserViewModel> userViewModelList = UserMapper.ToUserViewModelList(unitList);
+
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                userViewModelList = userViewModelList.Where(s => s.FirstName.Contains(searchString)
+                                       || s.LastName.Contains(searchString) || s.Email.Contains(searchString)
+                                       || s.Role.ToString().Contains(searchString) || s.Status.ToString().Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "userid_desc":
+                    userViewModelList = userViewModelList.OrderByDescending(s => s.UserID);
+                    break;
+                case "firstname_desc":
+                    userViewModelList = userViewModelList.OrderByDescending(s => s.FirstName);
+                    break;
+                case "firstname_asc":
+                    userViewModelList = userViewModelList.OrderBy(s => s.FirstName);
+                    break;
+                case "lastname_desc":
+                    userViewModelList = userViewModelList.OrderByDescending(s => s.LastName);
+                    break;
+                case "lastname_asc":
+                    userViewModelList = userViewModelList.OrderBy(s => s.LastName);
+                    break;
+                case "email_desc":
+                    userViewModelList = userViewModelList.OrderByDescending(s => s.Email);
+                    break;
+                case "email_asc":
+                    userViewModelList = userViewModelList.OrderBy(s => s.Email);
+                    break;
+                case "role_desc":
+                    userViewModelList = userViewModelList.OrderByDescending(s => s.Role.ToString());
+                    break;
+                case "role_asc":
+                    userViewModelList = userViewModelList.OrderBy(s => s.Role.ToString());
+                    break;
+                case "status_desc":
+                    userViewModelList = userViewModelList.OrderByDescending(s => s.Status);
+                    break;
+                case "status_asc":
+                    userViewModelList = userViewModelList.OrderBy(s => s.Status);
+                    break;
+                default:
+                    userViewModelList = userViewModelList.OrderBy(s => s.UserID);
+                    break;
+            }
+
+            int pageSize = 10;
+            int pageNumber = (page ?? 1);
+            return View(userViewModelList.ToPagedList(pageNumber, pageSize));
 
         }
 
@@ -58,7 +122,6 @@ namespace ManageCondo_FP.Controllers
             return View();
         }
 
-        // POST: User/Create
         [HttpPost]
         public ActionResult Create(UserViewModel unitViewModel)
         {
@@ -67,17 +130,24 @@ namespace ManageCondo_FP.Controllers
                 if (ModelState.IsValid)
                 {
                     User user = UserMapper.ToUser(unitViewModel);
-                    _userBusiness.AddUser(user);
-                    return RedirectToAction(nameof(Index));
+                    Result<bool> result = _userBusiness.AddUser(user);
+                    if(result.isSuccess)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    } else
+                    {
+                        ModelState.AddModelError(string.Empty, result.errorMessage);
+                        return View();
+                    }
                 }
                 else
                 {
-                    return View();
+                    return View(unitViewModel);
                 }
             }
-            catch
+            catch(Exception ex)
             {
-                return View();
+                return RedirectToAction("AppError", "Error");
             }
         }
 
@@ -97,18 +167,26 @@ namespace ManageCondo_FP.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    User unit = UserMapper.ToUser(userViewModel);
-                    _userBusiness.UpdateUser(unit);
-                    return RedirectToAction(nameof(Index));
+                    User user = UserMapper.ToUser(userViewModel);
+                    Result<bool> result = _userBusiness.UpdateUser(user);
+                    if (result.isSuccess)
+                    {
+                        return RedirectToAction(nameof(Index));
+                    }
+                    else
+                    {
+                        ModelState.AddModelError(string.Empty, result.errorMessage);
+                        return View();
+                    }
                 }
                 else
                 {
-                    return View();
+                    return View(userViewModel);
                 }
             }
             catch
             {
-                return View();
+                return RedirectToAction("AppError", "Error");
             }
         }
 

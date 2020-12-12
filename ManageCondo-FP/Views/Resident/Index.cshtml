@@ -1,0 +1,157 @@
+﻿@model PagedList.IPagedList<ManageCondo_FP.Models.ResidentViewModel>
+@using PagedList.Mvc;
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2 style="margin-bottom:15px;">Residents</h2>
+
+<p style="float:right">
+    <input type="button" class="btn btn-primary" value="Add Resident" onclick="@("window.location.href='" + @Url.Action("Create", "Resident") + "'");" />
+</p>
+
+@using (Html.BeginForm("Index", "Resident", FormMethod.Get))
+{
+    <p>
+        @Html.Label(" Find by text:")
+        @Html.TextBox("SearchString", ViewBag.CurrentFilter as string, new { htmlAttributes = new { @class = "form-control col-md-4" } })
+        <input type="submit" value="Search" class="btn btn-info" />
+    </p>
+}
+
+<div class="table-responsive" style="clear:both; margin-top:15px;">
+    <table id="dtHorizontalExample" class="table table-striped table-bordered table-sm" cellspacing="0"
+           width="100%">
+        <tr>
+            <th>
+                @Html.ActionLink("ID", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Email", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("First Name", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Type", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Address", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Phone", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Move In Date", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Date Of Birth", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Have Pets", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Emergency Notes", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.ActionLink("Emergency Contact", "Index", new { sortOrder = ViewBag.UserIDSortParm, currentFilter = ViewBag.CurrentFilter })
+            </th>
+            <th>
+                @Html.DisplayName("Actions")
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(item.ResidentID.ToString(), "Details", new { id = item.ResidentID })
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.User.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ResidentType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phone)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MoveInDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DateOfBirth)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HavePets)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmergencyContact)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.EmergencyContact)
+                </td>
+                <td>
+                    <span class="glyphicon glyphicon-pencil" onclick="@("window.location.href='" + @Url.Action("Edit", "Resident", new { id = item.ResidentID }) + "'");"></span>
+                    &nbsp;
+                    &nbsp;
+                    <span class="glyphicon glyphicon-trash" onclick="@("window.location.href='" + @Url.Action("Delete", "Resident", new { id = item.ResidentID }) + "'");"></span>
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>
+
+<br />
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+    new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))
+
+<script>
+    $(document).ready(function () {
+        $('#dtHorizontalExample').DataTable({
+            "scrollX": true
+        });
+        $('.dataTables_length').addClass('bs-select');
+    });
+</script>
+
+<style>
+    .dtHorizontalExampleWrapper {
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+    #dtHorizontalExample th, td {
+        white-space: nowrap;
+    }
+
+    table.dataTable thead .sorting:after,
+    table.dataTable thead .sorting:before,
+    table.dataTable thead .sorting_asc:after,
+    table.dataTable thead .sorting_asc:before,
+    table.dataTable thead .sorting_asc_disabled:after,
+    table.dataTable thead .sorting_asc_disabled:before,
+    table.dataTable thead .sorting_desc:after,
+    table.dataTable thead .sorting_desc:before,
+    table.dataTable thead .sorting_desc_disabled:after,
+    table.dataTable thead .sorting_desc_disabled:before {
+        bottom: .5em;
+    }
+</style>

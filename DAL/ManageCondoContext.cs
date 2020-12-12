@@ -20,6 +20,11 @@ namespace DAL
         public DbSet<Unit> Units { get; set; }
         public DbSet<User> Users { get; set; }
 
+        public DbSet<Resident> Residents { get; set; }
+
+
+
+
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();

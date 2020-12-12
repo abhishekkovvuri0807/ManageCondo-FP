@@ -1,18 +1,18 @@
 ﻿using ManagaCondo.Business;
 using ManageCondo.Business;
 using ManageCondo.DomainModels;
+using ManageCondo_FP.Authentication;
 using ManageCondo_FP.Mappers;
 using ManageCondo_FP.Models;
 using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace ManageCondo_FP.Controllers
 {
-    [Authorize(Roles = "Resident")]
+    //[CustomAuthorize(Roles = "Resident")]
     public class UnitController : Controller
     {
         private readonly PropertyBusiness _propertyBusiness;

@@ -88,6 +88,7 @@
 </div>
 }
 
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
+<p>
+    <input type="button" class="btn btn-primary" value="Edit" onclick="@("window.location.href='" + @Url.Action("Edit", "Resident", new {  id = Model.UnitID  }) + "'");" />
+    <input type="button" class="btn btn-primary" value="Property List" onclick="@("window.location.href='" + @Url.Action("Index", "Resident") + "'");" />
+</p>

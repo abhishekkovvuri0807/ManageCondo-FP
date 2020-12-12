@@ -18,10 +18,12 @@ namespace ManageCondo_FP
 
             // e.g. container.RegisterType<ITestService, TestService>();
 
-            container.RegisterType<ManageCondoContext, ManageCondoContext>();
+            //container.RegisterType<ManageCondoContext, ManageCondoContext>();
             container.RegisterType<IPropertyRepository, PropertyRepository>();
             container.RegisterType<IUnitRepository, UnitRepository>();
             container.RegisterType<IUserRepository, UserRepository>();
+            container.RegisterType<IResidentRepository, ResidentRepository>();
+
 
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));

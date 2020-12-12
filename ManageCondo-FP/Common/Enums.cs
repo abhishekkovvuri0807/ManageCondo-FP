@@ -57,4 +57,17 @@ namespace ManageCondo_FP.Common
         [Description("Resident")]
         Resident
     }
+
+    public enum ResidentType
+    {
+        OwnerOnSite,
+        OwnerOffSite,
+        Tenane, 
+        Resident,
+        ResidentOwner,
+        OwnerFamily,
+        Guest,
+        Occupant,
+        UnitManager
+    }
 }

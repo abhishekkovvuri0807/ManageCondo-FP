@@ -1,0 +1,72 @@
+﻿@model ManageCondo_FP.Models.ResidentViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.MoveInDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MoveInDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.DateOfBirth)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.DateOfBirth)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmergencyNotes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmergencyNotes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EmergencyContact)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EmergencyContact)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.HavePets)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.HavePets)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ResidentID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

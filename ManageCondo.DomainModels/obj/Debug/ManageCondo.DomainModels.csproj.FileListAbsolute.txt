@@ -1,5 +1,12 @@
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\bin\Debug\ManageCondo.DomainModels.dll.config
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\bin\Debug\ManageCondo.DomainModels.dll
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\bin\Debug\ManageCondo.DomainModels.pdb
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\bin\Debug\EntityFramework.dll
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\bin\Debug\EntityFramework.SqlServer.dll
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\bin\Debug\EntityFramework.xml
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\bin\Debug\EntityFramework.SqlServer.xml
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\obj\Debug\ManageCondo.DomainModels.csprojAssemblyReference.cache
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\obj\Debug\ManageCondo.DomainModels.csproj.CoreCompileInputs.cache
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\obj\Debug\ManageCondo.DomainModels.csproj.CopyComplete
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\obj\Debug\ManageCondo.DomainModels.dll
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\ManageCondo.DomainModels\obj\Debug\ManageCondo.DomainModels.pdb

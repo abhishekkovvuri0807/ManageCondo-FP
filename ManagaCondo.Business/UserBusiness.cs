@@ -28,14 +28,14 @@ namespace ManagaCondo.Business
             return units;
         }
 
-        public bool AddUser(User unit)
+        public Result<bool> AddUser(User unit)
         {
             return _userRepository.AddUser(unit);
         }
 
-        public void UpdateUser(User user)
+        public Result<bool> UpdateUser(User user)
         {
-            _userRepository.UpdateUser(user);
+            return _userRepository.UpdateUser(user);
         }
 
         public User GetUserDetails(int userID)

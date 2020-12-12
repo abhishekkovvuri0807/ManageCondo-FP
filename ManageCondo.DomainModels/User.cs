@@ -42,5 +42,9 @@ namespace ManageCondo.DomainModels
         [Required]
         public bool IsActive { get; set; }
 
+        public ICollection<Resident> Residents { get; set; }
+
+
+
     }
 }
