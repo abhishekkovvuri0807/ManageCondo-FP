@@ -24,7 +24,7 @@ namespace ManagaCondo.Business
 
         public IEnumerable<User> GetUsersByEmail(string email)
         {
-            IEnumerable<User> units = _userRepository.GetAllUsers();
+            IEnumerable<User> units = _userRepository.GetUsersByEmail(email);
             return units;
         }
 

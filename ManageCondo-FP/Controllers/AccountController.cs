@@ -37,14 +37,14 @@ namespace ManageCondo_FP.Controllers
         {
             if (ModelState.IsValid)
             {
+                UserViewModel userModel = new UserViewModel();
                 bool IsValidUser = _userBusiness.ValidateUser(user.Email, user.Password);
                 if (IsValidUser)
                 {
                     string[] roles = _userBusiness.GetUserRole(user.Email);
 
-                    UserViewModel userModel = new UserViewModel();
                     userModel.Email = user.Email;
-                    userModel.Role = (UserRole)Enum.Parse(typeof(UserRole), roles[0], true); ;
+                    userModel.Role = (UserRole)Enum.Parse(typeof(UserRole), roles[0], true);
 
                     string userData = JsonConvert.SerializeObject(userModel);
                     FormsAuthenticationTicket authTicket = new FormsAuthenticationTicket
@@ -61,7 +61,7 @@ namespace ManageCondo_FP.Controllers
                 }
                 else
                 {
-                    if (User.IsInRole(UserRole.Admin.ToString()))
+                    if (userModel.Role == UserRole.Admin)
                     {
                         return RedirectToAction("Index", "Property");
                     }

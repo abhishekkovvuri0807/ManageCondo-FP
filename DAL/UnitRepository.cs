@@ -23,6 +23,14 @@ namespace DAL
             return _dbContext.Units.Where(u => u.IsActive == true).Include(u => u.Property).ToList();
         }
 
+        public IEnumerable<Unit> GetUnitsByEmail(string email)
+        {
+            User user = _dbContext.Users.Where(u => u.IsActive == true && u.Email == email).FirstOrDefault();
+            List<int> resident = _dbContext.Residents.Where(u => u.IsActive == true && u.UserID == user.ID).Select(u => u.UnitID).ToList();
+            IEnumerable<Unit> units = _dbContext.Units.Where(u => u.IsActive == true && resident.Contains(u.ID)).Include(u => u.Property).ToList();
+            return units;
+        }
+
         public void AddUnit(Unit unit)
         {
             unit.IsActive = true;

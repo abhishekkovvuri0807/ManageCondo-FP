@@ -1,6 +1,7 @@
 ﻿using ManagaCondo.Business;
 using ManageCondo.DomainModels;
 using ManageCondo_FP.Authentication;
+using ManageCondo_FP.Common;
 using ManageCondo_FP.Mappers;
 using ManageCondo_FP.Models;
 using PagedList;
@@ -12,7 +13,6 @@ using System.Web.Mvc;
 
 namespace ManageCondo_FP.Controllers
 {
-    //[CustomAuthorize(Roles = "Admin, Resident")]
     public class ResidentController : Controller
     {
         private readonly ResidentBusiness _residentBusiness;
@@ -27,6 +27,7 @@ namespace ManageCondo_FP.Controllers
             _unitBusiness = unitBusiness;
         }
         // GET: Resident
+        [CustomAuthorize(Roles = "Admin, Resident")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -41,8 +42,6 @@ namespace ManageCondo_FP.Controllers
             ViewBag.DateOfBirthSortParm = sortOrder == "dateofbirth_asc" ? "dateofbirth_desc" : "dateofbirth_asc";
             ViewBag.EmergencyNotesSortParm = sortOrder == "emergencynotes_asc" ? "emergencynotes_desc" : "emergencynotes_asc";
             ViewBag.EmergencyContactSortParm = sortOrder == "emergencycontact_asc" ? "emergencycontact_desc" : "emergencycontact_asc";
-            ViewBag.UnitIDSortParm = sortOrder == "unitid_asc" ? "unitid_desc" : "unitid_asc";
-            ViewBag.UserIDSortParm = sortOrder == "userid_asc" ? "userid_desc" : "userid_asc";
 
             if (searchString != null)
             {
@@ -55,8 +54,17 @@ namespace ManageCondo_FP.Controllers
 
             ViewBag.CurrentFilter = searchString;
 
+            IEnumerable<Resident> residentList;
 
-            IEnumerable<Resident> residentList = _residentBusiness.GetAllResidents();
+            if (User.IsInRole(UserRole.Admin.ToString()))
+            {
+                residentList = _residentBusiness.GetAllResidents();
+            }
+            else
+            {
+                residentList = _residentBusiness.GetResidentByEmail(User.Identity.Name);
+            }
+
             IEnumerable<ResidentViewModel> residentViewModelList = ResidentMapper.ToResidentViewModelList(residentList);
 
             if (!String.IsNullOrEmpty(searchString))
@@ -65,8 +73,7 @@ namespace ManageCondo_FP.Controllers
                                        || s.Address.Contains(searchString) || s.MoveInDate.ToString().Contains(searchString)
                                        || s.EmergencyNotes.Contains(searchString) || s.DateOfBirth.ToString().Contains(searchString)
                                        || s.EmergencyContact.Contains(searchString) || s.ResidentID.ToString().Contains(searchString)
-                                       || s.ResidentType.ToString().Contains(searchString) || s.HavePets.ToString().Contains(searchString)
-                                       || s.UserID.ToString().Contains(searchString) || s.UnitID.ToString().Contains(searchString));
+                                       || s.ResidentType.ToString().Contains(searchString) || s.HavePets.ToString().Contains(searchString));
             }
 
             switch (sortOrder)
@@ -92,30 +99,36 @@ namespace ManageCondo_FP.Controllers
                 case "address_asc":
                     residentViewModelList = residentViewModelList.OrderBy(s => s.Address);
                     break;
-                //case "email_desc":
-                //    residentViewModelList = residentViewModelList.OrderByDescending(s => s.Email);
-                //    break;
-                //case "email_asc":
-                //    residentViewModelList = residentViewModelList.OrderBy(s => s.Email);
-                //    break;
-                //case "description_desc":
-                //    residentViewModelList = residentViewModelList.OrderByDescending(s => s.Description);
-                //    break;
-                //case "description_asc":
-                //    residentViewModelList = residentViewModelList.OrderBy(s => s.Description);
-                //    break;
-                //case "status_desc":
-                //    residentViewModelList = residentViewModelList.OrderByDescending(s => s.Status);
-                //    break;
-                //case "status_asc":
-                //    residentViewModelList = residentViewModelList.OrderBy(s => s.Status);
-                //    break;
-                //case "phone_desc":
-                //    residentViewModelList = residentViewModelList.OrderByDescending(s => s.Phone);
-                //    break;
-                //case "phone_asc":
-                //    residentViewModelList = residentViewModelList.OrderBy(s => s.Phone);
-                //    break;
+                case "email_desc":
+                    residentViewModelList = residentViewModelList.OrderByDescending(s => s.User.Email);
+                    break;
+                case "email_asc":
+                    residentViewModelList = residentViewModelList.OrderBy(s => s.User.Email);
+                    break;
+                case "type_desc":
+                    residentViewModelList = residentViewModelList.OrderByDescending(s => s.ResidentType.ToString());
+                    break;
+                case "type_asc":
+                    residentViewModelList = residentViewModelList.OrderBy(s => s.ResidentType.ToString());
+                    break;
+                case "phone_desc":
+                    residentViewModelList = residentViewModelList.OrderByDescending(s => s.Phone);
+                    break;
+                case "phone_asc":
+                    residentViewModelList = residentViewModelList.OrderBy(s => s.Phone);
+                    break;
+                case "moveindate_desc":
+                    residentViewModelList = residentViewModelList.OrderByDescending(s => s.MoveInDate);
+                    break;
+                case "moveindate_asc":
+                    residentViewModelList = residentViewModelList.OrderBy(s => s.MoveInDate);
+                    break;
+                case "dateofbirth_desc":
+                    residentViewModelList = residentViewModelList.OrderByDescending(s => s.DateOfBirth);
+                    break;
+                case "dateofbirth_asc":
+                    residentViewModelList = residentViewModelList.OrderBy(s => s.DateOfBirth);
+                    break;
                 default:
                     residentViewModelList = residentViewModelList.OrderBy(s => s.ResidentID);
                     break;
@@ -127,6 +140,7 @@ namespace ManageCondo_FP.Controllers
         }
 
         // GET: Resident/Details/5
+        [CustomAuthorize(Roles = "Admin, Resident")]
         public ActionResult Details(int id)
         {
             Resident unit = _residentBusiness.GetResidentDetails(id);
@@ -135,6 +149,8 @@ namespace ManageCondo_FP.Controllers
         }
 
         // GET: Resident/Create
+
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Create()
         {
             ResidentViewModel residentViewModel = new ResidentViewModel();
@@ -149,6 +165,7 @@ namespace ManageCondo_FP.Controllers
 
         // POST: Resident/Create
         [HttpPost]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Create(ResidentViewModel residentViewModel)
         {
             IEnumerable<User> userList = _userBusiness.GetAllUsers();
@@ -185,6 +202,7 @@ namespace ManageCondo_FP.Controllers
         }
 
         // GET: Resident/Edit/5
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
             Resident resident = _residentBusiness.GetResidentDetails(id);
@@ -202,6 +220,7 @@ namespace ManageCondo_FP.Controllers
 
         // POST: Resident/Edit/5
         [HttpPost]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Edit(int id, ResidentViewModel residentViewModel)
         {
             try
@@ -239,6 +258,7 @@ namespace ManageCondo_FP.Controllers
         }
 
         // GET: Resident/Delete/5
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             Resident resident = _residentBusiness.GetResidentDetails(id);
@@ -248,6 +268,7 @@ namespace ManageCondo_FP.Controllers
 
         // POST: Resident/Delete/5
         [HttpPost]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

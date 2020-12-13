@@ -22,6 +22,7 @@ namespace ManageCondo_FP.Controllers
             _userBusiness = userBusiness;
         }
         // GET: User
+        [CustomAuthorize(Roles = "Admin, Resident")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             ViewBag.CurrentSort = sortOrder;
@@ -117,12 +118,14 @@ namespace ManageCondo_FP.Controllers
         }
 
         // GET: User/Create
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Create(UserViewModel unitViewModel)
         {
             try
@@ -152,6 +155,7 @@ namespace ManageCondo_FP.Controllers
         }
 
         // GET: User/Edit/5
+
         public ActionResult Edit(int id)
         {
             User user = _userBusiness.GetUserDetails(id);
@@ -191,6 +195,8 @@ namespace ManageCondo_FP.Controllers
         }
 
         // GET: User/Delete/5
+
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             User unit = _userBusiness.GetUserDetails(id);
@@ -200,6 +206,7 @@ namespace ManageCondo_FP.Controllers
 
         // POST: User/Delete/5
         [HttpPost]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Delete(int id, FormCollection collection)
         {
             try

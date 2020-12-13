@@ -12,7 +12,7 @@ using ManageCondo_FP.Authentication;
 
 namespace ManageCondo_FP.Controllers
 {
-    //[CustomAuthorize(Roles = "Admin")]
+    [CustomAuthorize(Roles = "Admin")]
     public class PropertyController : Controller
     {
         private readonly PropertyBusiness _propertyBusiness;

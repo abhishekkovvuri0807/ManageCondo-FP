@@ -32,6 +32,15 @@ namespace DAL
             }
         }
 
+        public IEnumerable<Resident> GetResidentByEmail(string email)
+        {
+            User user = _dbContext.Users.Where(u => u.IsActive == true && u.Email == email).FirstOrDefault();
+            IEnumerable<Resident> residents = _dbContext.Residents.Where(u => u.IsActive == true && u.UserID == user.ID).Include(r => r.Unit).
+                    Where(u => u.IsActive == true).
+                    Include(r => r.User).Where(u => u.IsActive == true).ToList();
+            return residents;
+        }
+
         public Result<bool> AddResident(Resident resident)
         {
             try
@@ -64,8 +73,11 @@ namespace DAL
                     residentData.MoveInDate = resident.MoveInDate;
                     residentData.Phone = resident.Phone;
                     residentData.ResidentType = resident.ResidentType;
-                    residentData.UserID = resident.UserID;
-                    residentData.UnitID = resident.UnitID;
+                    if(resident.UserID != 0 && residentData.UnitID != 0)
+                    {
+                        residentData.UserID = resident.UserID;
+                        residentData.UnitID = resident.UnitID;
+                    }
                     residentData.HavePets = resident.HavePets;
                     residentData.EmergencyNotes = resident.EmergencyNotes;
                     residentData.EmergencyContact = resident.EmergencyContact;

@@ -2,6 +2,7 @@
 using ManageCondo.Business;
 using ManageCondo.DomainModels;
 using ManageCondo_FP.Authentication;
+using ManageCondo_FP.Common;
 using ManageCondo_FP.Mappers;
 using ManageCondo_FP.Models;
 using PagedList;
@@ -12,7 +13,6 @@ using System.Web.Mvc;
 
 namespace ManageCondo_FP.Controllers
 {
-    //[CustomAuthorize(Roles = "Resident")]
     public class UnitController : Controller
     {
         private readonly PropertyBusiness _propertyBusiness;
@@ -23,6 +23,8 @@ namespace ManageCondo_FP.Controllers
             _propertyBusiness = propertyBusiness;
             _unitBusiness = unitBusiness;
         }
+
+        [CustomAuthorize(Roles = "Admin, Resident")]
         public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
 
@@ -50,10 +52,19 @@ namespace ManageCondo_FP.Controllers
             ViewBag.CurrentFilter = searchString;
 
 
-            IEnumerable<Unit> unitList = _unitBusiness.GetAllUnits();
+
+            IEnumerable<Unit> unitList;
+
+            if (User.IsInRole(UserRole.Admin.ToString()))
+            {
+                unitList = _unitBusiness.GetAllUnits();
+            }
+            else
+            {
+                unitList = _unitBusiness.GetUnitsByEmail(User.Identity.Name);
+            }
+
             IEnumerable<UnitViewModel> unitViewModelList = UnitMapper.ToUnitViewModelList(unitList);
-
-
 
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -120,7 +131,8 @@ namespace ManageCondo_FP.Controllers
             return View(unitViewModelList.ToPagedList(pageNumber, pageSize));
         }
 
-        // GET: Unit/Details/5
+
+        [CustomAuthorize(Roles = "Admin, Resident")]
         public ActionResult Details(int id)
         {
             Unit unit = _unitBusiness.GetUnitDetails(id);
@@ -129,6 +141,7 @@ namespace ManageCondo_FP.Controllers
         }
 
         // GET: Unit/Create
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Create()
         {
             UnitViewModel unitViewModel = new UnitViewModel();
@@ -139,6 +152,8 @@ namespace ManageCondo_FP.Controllers
         }
 
         // POST: Unit/Create
+
+        [CustomAuthorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Create(UnitViewModel unitViewModel)
         {
@@ -152,16 +167,17 @@ namespace ManageCondo_FP.Controllers
                 }
                 else
                 {
-                    return View();
+                    return View(unitViewModel);
                 }
             }
             catch
             {
-                return View();
+                return View(unitViewModel);
             }
         }
 
         // GET: Unit/Edit/5
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Edit(int id)
         {
 
@@ -176,6 +192,7 @@ namespace ManageCondo_FP.Controllers
 
         // POST: Unit/Edit/5
         [HttpPost]
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Edit(int id, UnitViewModel unitViewModel)
         {
             try
@@ -188,16 +205,18 @@ namespace ManageCondo_FP.Controllers
                 }
                 else
                 {
-                    return View();
+                    return View(unitViewModel);
                 }
             }
             catch
             {
-                return View();
+                return View(unitViewModel);
             }
         }
 
         // GET: Unit/Delete/5
+
+        [CustomAuthorize(Roles = "Admin")]
         public ActionResult Delete(int id)
         {
             Unit unit = _unitBusiness.GetUnitDetails(id);
@@ -206,6 +225,7 @@ namespace ManageCondo_FP.Controllers
         }
 
         // POST: Unit/Delete/5
+        [CustomAuthorize(Roles = "Admin")]
         [HttpPost]
         public ActionResult Delete(int id, UnitViewModel unitViewModel)
         {
@@ -216,7 +236,7 @@ namespace ManageCondo_FP.Controllers
             }
             catch
             {
-                return View();
+                return View(unitViewModel);
             }
         }
     }

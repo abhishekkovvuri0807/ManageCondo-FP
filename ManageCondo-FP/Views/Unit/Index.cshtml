@@ -56,38 +56,39 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.UnitID.ToString(), "Details", new { id = item.UnitID })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Level)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FobKey)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Status)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.IsRentedOut)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Property.Name)
-                </td>
-                <td>
-                    <span class="glyphicon glyphicon-pencil" onclick="@("window.location.href='" + @Url.Action("Edit", "Unit", new { id = item.UnitID }) + "'");"></span>
-                    &nbsp;
-                    &nbsp;
-                    <span class="glyphicon glyphicon-trash" onclick="@("window.location.href='" + @Url.Action("Delete", "Unit", new { id = item.UnitID }) + "'");"></span>
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @Html.ActionLink(item.UnitID.ToString(), "Details", new { id = item.UnitID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.Level)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FobKey)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsRentedOut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Property.Name)
+        </td>
+        <td>
+            <span class="glyphicon glyphicon-pencil" onclick="@("window.location.href='" + @Url.Action("Edit", "Unit", new { id = item.UnitID }) + "'");"></span>
+            &nbsp;
+            &nbsp;
+            <span class="glyphicon glyphicon-trash" onclick="@("window.location.href='" + @Url.Action("Delete", "Unit", new { id = item.UnitID }) + "'");"></span>
+        </td>
+    </tr>
         }
 
     </table>

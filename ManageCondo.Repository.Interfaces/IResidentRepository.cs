@@ -14,5 +14,7 @@ namespace ManageCondo.Repository.Interfaces
         Result<bool> UpdateResident(Resident resident);
         Resident GetResidentDetails(int residentID);
         Result<bool> DeleteResident(int residentID);
+
+        IEnumerable<Resident> GetResidentByEmail(string email);
     }
 }

@@ -14,5 +14,7 @@ namespace ManageCondo.Repository.Interfaces
 
         void DeleteUnit(int unitID);
         List<Unit> GetUnitsByPropertyID(int propertyID);
+
+        IEnumerable<Unit> GetUnitsByEmail(string email);
     }
 }

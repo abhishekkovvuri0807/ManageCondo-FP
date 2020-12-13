@@ -68,50 +68,51 @@
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.ActionLink(item.ResidentID.ToString(), "Details", new { id = item.ResidentID })
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ResidentType)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.MoveInDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.DateOfBirth)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.HavePets)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmergencyContact)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.EmergencyContact)
-                </td>
-                <td>
-                    <span class="glyphicon glyphicon-pencil" onclick="@("window.location.href='" + @Url.Action("Edit", "Resident", new { id = item.ResidentID }) + "'");"></span>
-                    &nbsp;
-                    &nbsp;
-                    <span class="glyphicon glyphicon-trash" onclick="@("window.location.href='" + @Url.Action("Delete", "Resident", new { id = item.ResidentID }) + "'");"></span>
-                </td>
-            </tr>
+    <tr>
+        <td>
+            @Html.ActionLink(item.ResidentID.ToString(), "Details", new { id = item.ResidentID })
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.Email)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.LastName)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.ResidentType)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.MoveInDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateOfBirth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HavePets)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmergencyContact)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmergencyContact)
+        </td>
+        <td>
+            <span class="glyphicon glyphicon-pencil" onclick="@("window.location.href='" + @Url.Action("Edit", "Resident", new { id = item.ResidentID }) + "'");"></span>
+            &nbsp;
+            &nbsp;
+            <span class="glyphicon glyphicon-trash" onclick="@("window.location.href='" + @Url.Action("Delete", "Resident", new { id = item.ResidentID }) + "'");"></span>
+        </td>
+    </tr>
         }
 
     </table>

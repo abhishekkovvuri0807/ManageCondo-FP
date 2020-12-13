@@ -23,7 +23,19 @@ namespace ManagaCondo.Business
             {
                 throw ex;
             }
-           
+        }
+
+        public IEnumerable<Resident> GetResidentByEmail(string email)
+        {
+            try
+            {
+                IEnumerable<Resident> units = _residentRepository.GetResidentByEmail(email);
+                return units;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         public Result<bool> AddResident(Resident unit)

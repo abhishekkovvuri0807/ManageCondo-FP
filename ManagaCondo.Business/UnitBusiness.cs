@@ -22,6 +22,12 @@ namespace ManagaCondo.Business
             return units;
         }
 
+        public IEnumerable<Unit> GetUnitsByEmail(string email)
+        {
+            IEnumerable<Unit> units = _unitRepository.GetUnitsByEmail(email);
+            return units;
+        }
+
         public void AddUnit(Unit unit)
         {
             _unitRepository.AddUnit(unit);
