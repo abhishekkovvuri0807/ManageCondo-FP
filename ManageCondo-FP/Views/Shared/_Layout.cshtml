@@ -34,22 +34,24 @@
     </div>
     @if (User.Identity.IsAuthenticated)
     {
-        <div id="app-side-nav" class="app-left-nav">
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
-            @if (User.IsInRole("Resident"))
-            {
-                @Html.ActionLink("Resident", "Index", "Resident")
-                @Html.ActionLink("Unit", "Index", "Unit")
-                @Html.ActionLink("Account Details", "Index", "User")
-            }
-            else
-            {
-                @Html.ActionLink("Resident", "Index", "Resident")
-                @Html.ActionLink("Property", "Index", "Property")
-                @Html.ActionLink("Unit", "Index", "Unit")
-                @Html.ActionLink("Users", "Index", "User")
-            }
-        </div>
+<div id="app-side-nav" class="app-left-nav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
+    @if (User.IsInRole("Resident"))
+    {
+        @Html.ActionLink("Resident", "Index", "Resident")
+        @Html.ActionLink("Unit", "Index", "Unit")
+        @Html.ActionLink("Parcel", "Index", "Parcel")
+        @Html.ActionLink("Account Details", "Index", "User")
+    }
+    else
+    {
+        @Html.ActionLink("Parcel", "Index", "Parcel")
+        @Html.ActionLink("Resident", "Index", "Resident")
+        @Html.ActionLink("Property", "Index", "Property")
+        @Html.ActionLink("Unit", "Index", "Unit")
+        @Html.ActionLink("Users", "Index", "User")
+    }
+</div>
     }
     <div class="container body-content bg-white" id="main" style="background-color:white">
         <div class="color-black bg-white">

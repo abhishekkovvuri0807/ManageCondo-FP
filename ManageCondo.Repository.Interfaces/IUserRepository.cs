@@ -17,5 +17,7 @@ namespace ManageCondo.Repository.Interfaces
         bool ValidateUser(string email, string password);
         string[] GetUserRole(string email);
         IEnumerable<User> GetUsersByEmail(string email);
+
+        IEnumerable<User> GetAllResidents();
     }
 }

@@ -22,7 +22,7 @@ namespace DAL
 
         public DbSet<Resident> Residents { get; set; }
 
-
+        public DbSet<Parcel> Parcels { get; set; }
 
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

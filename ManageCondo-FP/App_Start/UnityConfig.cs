@@ -23,8 +23,7 @@ namespace ManageCondo_FP
             container.RegisterType<IUnitRepository, UnitRepository>();
             container.RegisterType<IUserRepository, UserRepository>();
             container.RegisterType<IResidentRepository, ResidentRepository>();
-
-
+            container.RegisterType<IParcelRepository, ParcelRepository>();
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }

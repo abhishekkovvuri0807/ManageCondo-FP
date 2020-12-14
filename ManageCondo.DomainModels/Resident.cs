@@ -53,5 +53,8 @@ namespace ManageCondo.DomainModels
 
         public Unit Unit { get; set; }
 
+        public ICollection<Parcel> Parcels { get; set; }
+
+
     }
 }

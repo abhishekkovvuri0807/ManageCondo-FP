@@ -70,4 +70,12 @@ namespace ManageCondo_FP.Common
         Occupant,
         UnitManager
     }
+
+    public enum ParcelStatus
+    {
+        DriverDelivery,
+        ResidentPickUp,
+        ResidentDelivery,
+        DriverPickUp
+    }
 }

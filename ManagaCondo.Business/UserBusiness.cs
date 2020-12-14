@@ -28,6 +28,12 @@ namespace ManagaCondo.Business
             return units;
         }
 
+        public IEnumerable<User> GetAllResidents()
+        {
+            IEnumerable<User> units = _userRepository.GetAllResidents();
+            return units;
+        }
+
         public Result<bool> AddUser(User unit)
         {
             return _userRepository.AddUser(unit);

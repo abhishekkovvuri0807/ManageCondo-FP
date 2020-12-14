@@ -172,11 +172,13 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Mappers\ParcelMapper.cs" />
     <Compile Include="Mappers\PropertyMapper.cs" />
     <Compile Include="Mappers\ResidentMapper.cs" />
     <Compile Include="Mappers\UnitMapper.cs" />
     <Compile Include="Mappers\UserMapper.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\ParcelViewModel.cs" />
     <Compile Include="Models\PropertyViewModel.cs" />
     <Compile Include="Models\ResidentViewModel.cs" />
     <Compile Include="Models\UnitViewModel.cs" />
@@ -248,7 +250,11 @@
     <Content Include="Views\Resident\Edit.cshtml" />
     <Content Include="Views\Resident\Delete.cshtml" />
     <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\Parcel\Create.cshtml" />
     <Content Include="Views\Parcel\Index.cshtml" />
+    <Content Include="Views\Parcel\Edit.cshtml" />
+    <Content Include="Views\Parcel\Details.cshtml" />
+    <Content Include="Views\Parcel\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

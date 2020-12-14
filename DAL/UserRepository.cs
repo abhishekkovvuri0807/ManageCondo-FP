@@ -31,6 +31,11 @@ namespace DAL
             return _dbContext.Users.Where(u => u.IsActive == true && u.Email == email).ToList();
         }
 
+        public IEnumerable<User> GetAllResidents()
+        {
+            return _dbContext.Users.Where(u => u.IsActive == true && u.Role == "Resident").ToList();
+        }
+
         public Result<bool> AddUser(User user)
         {
             user.IsActive = true;

@@ -51,6 +51,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Parcel.cs" />
     <Compile Include="ParkingSpot.cs" />
     <Compile Include="Property.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -22,8 +22,13 @@ D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageC
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_v05.resources
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_v06.resources
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_v07.resources
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_log_v11.resources
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_log_v12.resources
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_log_v13.resources
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\ManageCondo.DAL.csproj.GenerateResource.cache
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\ManageCondo.DAL.csproj.CoreCompileInputs.cache
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\ManageCondo.DAL.csproj.CopyComplete
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.dll
 D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.pdb
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_log_v14.resources
+D:\ITC-SEM-3\Windows-Dev-MVC\ManageCondo-FP\DAL\obj\Debug\DAL.Migrations.ManageCondoDB_log_v15.resources

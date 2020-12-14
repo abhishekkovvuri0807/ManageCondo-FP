@@ -16,7 +16,9 @@ namespace DAL.Utility
         public static string RESIDENT_ADD_SUCCESS = "Resident added successfully";
         public static string RESIDENT_UPDATE_SUCCESS = "Resident updated successfully";
         public static string RESIDENT_NOT_EXISTS = "Resident does not exists.";
-
+        public static string PARCELS_ADD_SUCCESS = "Parcel added successfully";
+        public static string PARCELS_UPDATE_SUCCESS = "Resident updated successfully";
+        public static string PARCEL_NOT_EXISTS = "Parcel For Residents not exists";
 
     }
 }
